@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb2D = null;
 
     [SerializeField]
+    private bool jump = false;
+
+    [SerializeField]
     private LayerMask groundLayer;
 
 	// Use this for initialization
@@ -38,7 +41,12 @@ public class PlayerController : MonoBehaviour {
     {
         movementDirection = new Vector2(Input.acceleration.x, 0.0f);
 
-        rb2D.velocity = movementDirection * movementSpeed;
+        if (jump)
+        {
+            rb2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+
+        rb2D.AddForce(movementDirection * movementSpeed * Time.deltaTime, ForceMode2D.Force);
     }
 
     //Check if the Player is grounded
@@ -75,8 +83,11 @@ public class PlayerController : MonoBehaviour {
     {
         if (IsGrounded())
         {
-            Debug.Log("Jump");
-            rb2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            jump = true;
+        }
+        else
+        {
+            jump = false;
         }
     }
 }
