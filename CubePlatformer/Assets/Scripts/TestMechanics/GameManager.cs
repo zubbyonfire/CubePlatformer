@@ -7,8 +7,6 @@ public class GameManager : MonoBehaviour {
     public delegate void MobileTap();
     public static event MobileTap OnTap;
 
-    private bool tapRelease = false;
-
 	// Use this for initialization
 	void Start () {
 		
