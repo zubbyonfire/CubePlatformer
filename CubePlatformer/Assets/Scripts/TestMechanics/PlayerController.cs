@@ -5,73 +5,40 @@ using UnityEngine;
 
 //What this script does:
 //Handles player movement logic
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour {
 
+    private PlayerMovement controller;
+
+    [Range(1, 5)]
     [SerializeField]
-    private float movementSpeed = 0f, jumpForce = 0f;
+    private float speedMode = 1;
 
-    [SerializeField]
-    private float distToGround = 0f;
+    private float horizontalMove = 0f;
 
-    private Vector2 movementDirection = Vector2.zero; //Direction player moves in
-
-    private Rigidbody2D rb2D = null;
-
-    [SerializeField]
     private bool jump = false;
-
-    [SerializeField]
-    private LayerMask groundLayer;
 
 	// Use this for initialization
 	void Start () {
-
-        rb2D = GetComponent<Rigidbody2D>();
-        distToGround = GetComponent<Collider2D>().bounds.extents.y;
+        controller = GetComponent<PlayerMovement>();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        TiltMovement();
+        horizontalMove = Input.acceleration.x;
+
+        horizontalMove *= speedMode;
+
+        controller.Move(horizontalMove, jump);
+
+        jump = false;
 	}
 
-    //Move the player left/right based on tilt input
-    void TiltMovement()
-    {
-        movementDirection = new Vector2(Input.acceleration.x, 0.0f);
-
-        if (jump)
-        {
-            rb2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
-
-        rb2D.AddForce(movementDirection * movementSpeed * Time.deltaTime, ForceMode2D.Force);
-    }
-
-    //Check if the Player is grounded
-    bool IsGrounded()
-    {
-        Vector2 position = transform.position;
-        Vector2 direction = Vector2.down;
-        float distance = distToGround + 0.1f;
-
-        Debug.DrawRay(position, direction * distance, Color.red);
-
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-
-        if (hit.collider != null)
-        {
-            return true;
-        }
-
-        return false;
-    }
+    
 
     private void OnEnable()
     {
         GameManager.OnTap += PlayerJump;
-
     }
 
     private void OnDisable()
@@ -81,13 +48,8 @@ public class PlayerController : MonoBehaviour {
 
     void PlayerJump()
     {
-        if (IsGrounded())
-        {
-            jump = true;
-        }
-        else
-        {
-            jump = false;
-        }
+        Debug.Log("jump");
+
+        jump = true;
     }
 }

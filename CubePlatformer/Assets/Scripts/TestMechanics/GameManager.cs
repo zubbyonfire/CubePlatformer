@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour {
     public delegate void MobileTap();
     public static event MobileTap OnTap;
 
+    private bool tapRelease = false;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -14,9 +16,12 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.touchCount > 0)
+		if (Input.touchCount == 1)
         {
-            OnTap();
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                OnTap();
+            }
         }
 	}
 }
