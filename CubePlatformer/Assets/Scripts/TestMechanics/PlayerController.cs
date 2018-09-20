@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float speedMode = 1;
 
+    [Range(100,1000)]
+    [SerializeField]
+    private float jumpForce = 500;
+
     private float horizontalMove = 0f;
 
     private bool jump = false;
@@ -29,12 +33,10 @@ public class PlayerController : MonoBehaviour {
 
         horizontalMove *= speedMode;
 
-        controller.Move(horizontalMove, jump);
+        controller.Move(horizontalMove, jump, jumpForce);
 
         jump = false;
 	}
-
-    
 
     private void OnEnable()
     {
@@ -48,8 +50,6 @@ public class PlayerController : MonoBehaviour {
 
     void PlayerJump()
     {
-        Debug.Log("jump");
-
         jump = true;
     }
 }
