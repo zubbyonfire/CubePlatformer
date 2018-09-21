@@ -40,11 +40,19 @@ public class PlayerController : MonoBehaviour {
 
     private void OnEnable()
     {
+        GameManager.ChangeScene += SceneChange;
         GameManager.OnTap += PlayerJump;
     }
 
     private void OnDisable()
     {
+        GameManager.ChangeScene -= SceneChange;
+        GameManager.OnTap -= PlayerJump;
+    }
+
+    void SceneChange()
+    {
+        GameManager.ChangeScene -= SceneChange;
         GameManager.OnTap -= PlayerJump;
     }
 
