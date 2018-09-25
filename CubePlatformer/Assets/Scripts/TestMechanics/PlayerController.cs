@@ -52,8 +52,7 @@ public class PlayerController : MonoBehaviour {
 
     void SceneChange()
     {
-        GameManager.ChangeScene -= SceneChange;
-        GameManager.OnTap -= PlayerJump;
+        this.gameObject.SetActive(false);
     }
 
     void PlayerJump()

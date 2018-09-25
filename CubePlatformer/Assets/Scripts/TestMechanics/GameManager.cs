@@ -39,7 +39,10 @@ public class GameManager : MonoBehaviour {
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                OnTap();
+                if (OnTap != null) //Check to make sure there's a delegate
+                {
+                    OnTap();
+                }
             }
         }
 	}
