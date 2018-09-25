@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
+    [SerializeField]
+    private LevelLoadScriptableObject levelLoadScriptableObject;
+
     public delegate void MobileTap();
     public static event MobileTap OnTap;
 
