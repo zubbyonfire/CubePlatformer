@@ -18,6 +18,9 @@ public class PlayerSpawner : MonoBehaviour {
 
     public SceneList SceneList { get { return sceneList; } set { sceneList = value; } }
 
+    public PlayerObjectScrtipableObject playerData;
+
+
 	// Use this for initialization
 	void Start () {
 	    
@@ -30,7 +33,12 @@ public class PlayerSpawner : MonoBehaviour {
 
     void SpawnPlayer(string previousSceneName) //Spawn the player at the spawn transform
     {
+        if (previousSceneName == sceneList.ToString())
+        {
+            GameObject spawnedPlayer = playerData.playerObject;
 
+            Instantiate(spawnedPlayer, transform.position, transform.rotation);
+        }
     }
 
     private void OnDrawGizmosSelected()

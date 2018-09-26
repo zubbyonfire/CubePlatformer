@@ -8,6 +8,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerController : MonoBehaviour {
 
+    private static PlayerController instance;
+
     private PlayerMovement controller;
 
     [Range(1, 5)]
@@ -22,8 +24,20 @@ public class PlayerController : MonoBehaviour {
 
     private bool jump = false;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        //Check if instance already exists, otherwise delete self
+        if (instance == null)
+        {
+            instance = this;
+        } else
+        {
+            Destroy(gameObject); 
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
         controller = GetComponent<PlayerMovement>();
 	}
 	

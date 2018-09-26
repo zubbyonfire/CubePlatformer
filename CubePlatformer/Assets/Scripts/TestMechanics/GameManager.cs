@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour {
     public delegate void SceneChange();
     public static event SceneChange ChangeScene;
 
+    public delegate void SpawnPlayer(string previousSceneName);
+    public static event SpawnPlayer PlayerSpawn;
+
     public static GameManager instance = null; //Static Instance of GameManager 
 
     private void Awake()
@@ -33,7 +36,7 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        
 	}
 	
 	// Update is called once per frame
