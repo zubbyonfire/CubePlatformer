@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NextLevel : MonoBehaviour {
 
@@ -8,7 +9,7 @@ public class NextLevel : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            GameManager.instance.LoadNextLevel();
+            LevelManager.LoadNextScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
