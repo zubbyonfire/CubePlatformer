@@ -15,7 +15,6 @@ public static class LevelManager {
 
     public static void LoadNextScene (int sceneBuildNumber)
     {
-        Debug.Log("delete me");
         //Load the next scene
         SceneManager.LoadScene(sceneBuildNumber + 1);
     }
