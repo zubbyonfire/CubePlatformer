@@ -9,7 +9,7 @@ public class NextLevel : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            LevelManager.LoadNextScene(SceneManager.GetActiveScene().buildIndex);
+            LevelManager.LoadNextScene();
         }
     }
 }

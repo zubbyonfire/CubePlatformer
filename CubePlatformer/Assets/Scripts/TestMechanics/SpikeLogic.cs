@@ -8,7 +8,8 @@ public class SpikeLogic : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            GameManager.instance.RestartLevel();
+            //Add level manager restart
+            LevelManager.RestartScene();
         }
     }
 }

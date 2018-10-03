@@ -6,11 +6,13 @@ using UnityEngine;
 //What this script does:
 //Handles player movement logic
 [RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour {
 
     private static PlayerController instance;
 
-    private PlayerMovement controller;
+    private PlayerMovement playerMovement;
+    private PlayerInput playerInput;
 
     [Range(1, 5)]
     [SerializeField]
@@ -20,8 +22,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float jumpForce = 500;
 
-    private float horizontalMove = 0f;
-
     private bool jump = false;
 
     private void Awake()
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
-        } else
+        } else if (instance != this)
         {
             Destroy(gameObject); 
         }
@@ -38,38 +38,18 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        controller = GetComponent<PlayerMovement>();
+        playerMovement = GetComponent<PlayerMovement>();
+        playerInput = GetComponent<PlayerInput>();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        horizontalMove = Input.acceleration.x;
-
-        horizontalMove *= speedMode;
-
-        controller.Move(horizontalMove, jump, jumpForce);
+        playerMovement.Move(playerInput.HorizontalInput() * speedMode, jump, jumpForce);
 
         jump = false;
 	}
 
-    private void OnEnable()
-    {
-        GameManager.ChangeScene += SceneChange;
-        GameManager.OnTap += PlayerJump;
-    }
-
-    private void OnDisable()
-    {
-        GameManager.ChangeScene -= SceneChange;
-        GameManager.OnTap -= PlayerJump;
-    }
-
-    void SceneChange()
-    {
-        this.gameObject.SetActive(false);
-    }
-
-    void PlayerJump()
+    public void PlayerJump()
     {
         jump = true;
     }

@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField]
     private LayerMask groundLayer;
 
+    [SerializeField]
     private Rigidbody2D rb2D = null;
 
     private Vector3 velocity = Vector3.zero;
@@ -28,14 +29,14 @@ public class PlayerMovement : MonoBehaviour {
         distToGround = playerCollider.bounds.extents.y;
         
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void Move(float move, bool jump, float jumpForce)
     {
+        if (rb2D == null)
+        {
+            rb2D = GetComponent<Rigidbody2D>();
+        }
+
         Vector3 targetVelocity = new Vector2(move * 10f, rb2D.velocity.y);
 
         rb2D.velocity = Vector3.SmoothDamp(rb2D.velocity, targetVelocity, ref velocity, movementSmoothing);

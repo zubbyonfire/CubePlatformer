@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 
-[ExecuteInEditMode]
 public class PlayerSpawner : MonoBehaviour {
 
     [SerializeField]
@@ -20,10 +19,9 @@ public class PlayerSpawner : MonoBehaviour {
 
     public PlayerObjectScrtipableObject playerData;
 
-
 	// Use this for initialization
 	void Start () {
-	    
+        SpawnPlayer(LevelManager.previousSceneName);
 	}
 	
 	// Update is called once per frame
@@ -33,11 +31,9 @@ public class PlayerSpawner : MonoBehaviour {
 
     void SpawnPlayer(string previousSceneName) //Spawn the player at the spawn transform
     {
-        if (previousSceneName == sceneList.ToString())
+        if (previousSceneName == null && levelStart || (previousSceneName == sceneList.ToString()))
         {
-            GameObject spawnedPlayer = playerData.playerObject;
-
-            Instantiate(spawnedPlayer, transform.position, transform.rotation);
+            GameObject spawnedPlayer = Instantiate(playerData.playerObject, transform.position, transform.rotation)as GameObject;
         }
     }
 
@@ -54,6 +50,8 @@ public class PlayerSpawnerEditor:Editor
     override public void OnInspectorGUI()
     {
         var playerSpawner = target as PlayerSpawner;
+
+        playerSpawner.playerData = (PlayerObjectScrtipableObject)EditorGUILayout.ObjectField("Player Object" ,playerSpawner.playerData, typeof(PlayerObjectScrtipableObject), true);
 
         playerSpawner.LevelStart = GUILayout.Toggle(playerSpawner.LevelStart, "Level Start");
 

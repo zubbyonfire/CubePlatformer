@@ -41,34 +41,6 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.touchCount == 1)
-        {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                if (OnTap != null) //Check to make sure there's a delegate
-                {
-                    OnTap();
-                }
-            }
-        }
+		
 	}
-
-    public void RestartLevel() //Restart the current scene
-    {
-        ChangeScene();
-        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex)); //Reload this scene
-    }
-
-    public void LoadNextLevel() //Load the next scene
-    {
-        ChangeScene();
-        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1)); //Load next scene
-    }
-
-    IEnumerator LoadLevel(int newSceneIndex)
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        SceneManager.LoadScene(newSceneIndex);
-    }
 }
