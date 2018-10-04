@@ -288,12 +288,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformMoveSpeed: 0
-  startPos: 1.49
-  endPos: 1.07
-  playerTriggerActive: 0
-  continuosMovement: 0
-  movementDirection: 1
-  platformStartPosition: 0
+  startPos: 2.22
+  endPos: 2.66
+  wait: 0
+  waitTime: 0
+  movementDirection: 0
+  platformInitalMoveDirection: 0
 --- !u!1001 &1050055056
 Prefab:
   m_ObjectHideFlags: 0
