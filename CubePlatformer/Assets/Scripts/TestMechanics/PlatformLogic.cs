@@ -16,10 +16,6 @@ public class PlatformLogic : MonoBehaviour {
     private Vector2 startTargetPos, endTargetPos;
     private float minPos, maxPos;
 
-    [Tooltip("Does the platform wait upon reaching it's target, before moving back")]
-    [SerializeField]
-    private bool wait;
-
     [SerializeField]
     private float waitTime;
 
@@ -67,7 +63,7 @@ public class PlatformLogic : MonoBehaviour {
                 SwitchDirection();
             }
 
-            //currentCoroutine = MovePlatform(minPos, maxPos);
+            currentCoroutine = MovePlatformHorizontal();
         }
         else
         {
@@ -82,7 +78,7 @@ public class PlatformLogic : MonoBehaviour {
                 SwitchDirection();
             }
 
-            //currentCoroutine = MovePlatform(minPos, maxPos);
+            currentCoroutine = MovePlatformVertical();
         }
 
         StartCoroutine(currentCoroutine); //Start the move platform coroutine
@@ -101,38 +97,85 @@ public class PlatformLogic : MonoBehaviour {
         maxPos = tempValue;
     }
 
-    IEnumerator MovePlatformHorizontal (float min, float max)
+    IEnumerator MovePlatformVertical()
     {
-        
+        while (time < 1.0f)
+        {
+            transform.position = new Vector2(transform.position.x, Mathf.Lerp(minPos, maxPos, time));
 
-        yield return null;
+            time += Time.deltaTime * platformMoveSpeed;
+
+            yield return 0;
+        }
+
+        StopCoroutine(currentCoroutine);
+
+        currentCoroutine = PlatformWait(MovePlatformVertical());
+
+        StartCoroutine(currentCoroutine);
     }
 
+    IEnumerator MovePlatformHorizontal ()
+    {
+        while (time < 1.0f)
+        {
+            transform.position = new Vector2( Mathf.Lerp(minPos, maxPos, time), transform.position.y);
+
+            time += Time.deltaTime * platformMoveSpeed;
+
+            yield return 0;
+        }
+
+        StopCoroutine(currentCoroutine);
+
+        currentCoroutine = PlatformWait(MovePlatformHorizontal());
+
+        StartCoroutine(currentCoroutine);
+    }
+
+    IEnumerator PlatformWait (IEnumerator nextCoroutine)
+    {
+        yield return new WaitForSeconds(waitTime);
+        SwitchDirection();
+
+        time = 0.0f;
+
+        StopCoroutine(currentCoroutine);
+        currentCoroutine = nextCoroutine;
+        StartCoroutine(currentCoroutine);
+           
+    }
 
 
     private void OnDrawGizmos()
     {
-        switch (movementDirection)
+
+        if (!Application.isPlaying)
         {
-            case MovementDirection.Horizontal:
-                startTargetPos = new Vector2(transform.position.x + startPos, transform.position.y);
-                endTargetPos = new Vector2(transform.position.x - endPos, transform.position.y);
-                break;
-            case MovementDirection.Vertical:
-                startTargetPos = new Vector2(transform.position.x, transform.position.y + startPos);
-                endTargetPos = new Vector2(transform.position.x, transform.position.y - endPos);
-                break;
+
+            switch (movementDirection)
+            {
+                case MovementDirection.Horizontal:
+                    startTargetPos = new Vector2(transform.position.x + startPos, transform.position.y);
+                    endTargetPos = new Vector2(transform.position.x - endPos, transform.position.y);
+                    break;
+                case MovementDirection.Vertical:
+                    startTargetPos = new Vector2(transform.position.x, transform.position.y + startPos);
+                    endTargetPos = new Vector2(transform.position.x, transform.position.y - endPos);
+                    break;
+            }
         }
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, startTargetPos);
-        Gizmos.DrawCube(startTargetPos, new Vector3(0.25f, 0.25f, 0));
-        Handles.Label(new Vector2(startTargetPos.x - 0.15f, startTargetPos.y + 0.3f), "Start");
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, startTargetPos);
+            Gizmos.DrawCube(startTargetPos, new Vector3(0.25f, 0.25f, 0));
+            Handles.Label(new Vector2(startTargetPos.x - 0.15f, startTargetPos.y + 0.3f), "Start");
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, endTargetPos);
-        Gizmos.DrawCube(endTargetPos, new Vector3(0.25f, 0.25f, 0));
-        Handles.Label(new Vector2(endTargetPos.x - 0.1f, endTargetPos.y + 0.3f), "End");
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, endTargetPos);
+            Gizmos.DrawCube(endTargetPos, new Vector3(0.25f, 0.25f, 0));
+            Handles.Label(new Vector2(endTargetPos.x - 0.1f, endTargetPos.y + 0.3f), "End");
+        
     }
 
     //Child the Player while they collide with the trigger
