@@ -178,15 +178,5 @@ public class PlatformLogic : MonoBehaviour {
         
     }
 
-    //Child the Player while they collide with the trigger
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-    }
-
-    //De-Child the player once they exit the trigger
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        
-    }
+    
 }

@@ -105,6 +105,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
+  groundDistCheck: 0.3
+  rb2D: {fileID: 0}
 --- !u!114 &114801938147447178
 MonoBehaviour:
   m_ObjectHideFlags: 1

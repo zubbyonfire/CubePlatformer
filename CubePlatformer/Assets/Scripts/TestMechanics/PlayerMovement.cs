@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour, IPlatform
+{
 
     [SerializeField]
     private float movementSmoothing = 0.5f;
@@ -16,6 +17,10 @@ public class PlayerMovement : MonoBehaviour {
     private LayerMask groundLayer;
 
     [SerializeField]
+    [Range(0.1f, 1)]
+    private float groundDistCheck = 0.1f;
+
+    [SerializeField]
     private Rigidbody2D rb2D = null;
 
     private Vector3 velocity = Vector3.zero;
@@ -26,8 +31,7 @@ public class PlayerMovement : MonoBehaviour {
 
         playerCollider = GetComponent<Collider2D>();
         distToSides = playerCollider.bounds.extents.x;
-        distToGround = playerCollider.bounds.extents.y;
-        
+        distToGround = playerCollider.bounds.extents.y;   
     }
 
     public void Move(float move, bool jump, float jumpForce)
@@ -63,7 +67,7 @@ public class PlayerMovement : MonoBehaviour {
 
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
         RaycastHit2D hit2 = Physics2D.Raycast(position1, direction, distance, groundLayer);
-        RaycastHit2D hit3 = Physics2D.Raycast(position1, direction, distance, groundLayer);
+        RaycastHit2D hit3 = Physics2D.Raycast(position2, direction, distance, groundLayer);
 
         if (hit.collider != null || hit2.collider != null || hit3.collider != null)
         {
@@ -71,5 +75,20 @@ public class PlayerMovement : MonoBehaviour {
         } 
 
         return false;
+    }
+
+    public void OnPlatform(bool onPlatform)
+    { 
+        if (onPlatform) //If on platform freeze rotation, otherwise unFreeze it
+        {
+            rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            transform.rotation = Quaternion.Euler(0,0,0); 
+        }
+        else
+        {
+            rb2D.constraints = RigidbodyConstraints2D.None;
+        }
+
     }
 }
