@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour, IPlatform
 {
-
     [SerializeField]
     private float movementSmoothing = 0.5f;
 
@@ -14,7 +13,13 @@ public class PlayerMovement : MonoBehaviour, IPlatform
     private float distToSides = 0f; //Distance from center of object to edge of object bounds
 
     [SerializeField]
+    private float jumpForceLeftRight;
+
+    [SerializeField]
     private LayerMask groundLayer;
+
+    [SerializeField]
+    private LayerMask wallJumpLayer;
 
     [SerializeField]
     [Range(0.1f, 1)]
@@ -49,14 +54,26 @@ public class PlayerMovement : MonoBehaviour, IPlatform
         {
             rb2D.AddForce(new Vector2(0, jumpForce));
         }
+        else if (!IsGrounded() && IsWallJumpLeft() && jump)
+        {
+            //Jump right
+            rb2D.AddForce(new Vector2(jumpForceLeftRight, jumpForce));
+            Debug.Log("Jump Right");
+        }
+        else if (!IsGrounded() && IsWallJumpRight() && jump)
+        {
+            //Jump left
+            rb2D.AddForce(new Vector2(-jumpForceLeftRight, jumpForce));
+            Debug.Log("Jump Left");
+        }
     }
 
     //Check if the Player is grounded
     bool IsGrounded()
     {
         Vector2 position = transform.position;
-        Vector2 position1 = new Vector2(transform.position.x - distToSides, transform.position.y);
-        Vector2 position2 = new Vector2(transform.position.x + distToSides, transform.position.y);
+        Vector2 position1 = new Vector2(transform.position.x - distToSides + 0.05f, transform.position.y);
+        Vector2 position2 = new Vector2(transform.position.x + distToSides - 0.05f, transform.position.y);
 
         Vector2 direction = Vector2.down;
         float distance = distToGround + 0.1f;
@@ -76,6 +93,63 @@ public class PlayerMovement : MonoBehaviour, IPlatform
 
         return false;
     }
+
+    bool IsWallJumpLeft()
+    {
+        Vector2 position = transform.position;
+        Vector2 position1 = new Vector2(transform.position.x, transform.position.y + distToGround);
+        Vector2 position2 = new Vector2(transform.position.x, transform.position.y - distToGround);
+
+        Vector2 direction = Vector2.left;
+        float distance = distToSides + 0.1f;
+
+        Debug.DrawRay(position, direction * distance, Color.cyan);
+        Debug.DrawRay(position1, direction * distance, Color.magenta);
+        Debug.DrawRay(position2, direction * distance, Color.grey);
+
+        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance);
+        RaycastHit2D hit2 = Physics2D.Raycast(position1, direction, distance);
+        RaycastHit2D hit3 = Physics2D.Raycast(position2, direction, distance);
+
+        if (hit.collider != null && hit2.collider != null && hit3.collider != null)
+        {
+            if (hit.collider.tag == "WallJump" || hit2.collider.tag == "WallJump" || hit3.collider.tag == "WallJump")
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool IsWallJumpRight()
+    {
+        Vector2 position = transform.position;
+        Vector2 position1 = new Vector2(transform.position.x, transform.position.y + distToGround);
+        Vector2 position2 = new Vector2(transform.position.x, transform.position.y - distToGround);
+
+        Vector2 direction = Vector2.right;
+        float distance = distToSides + 0.1f;
+
+        Debug.DrawRay(position, direction * distance, Color.cyan);
+        Debug.DrawRay(position1, direction * distance, Color.magenta);
+        Debug.DrawRay(position2, direction * distance, Color.grey);
+
+        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance);
+        RaycastHit2D hit2 = Physics2D.Raycast(position1, direction, distance);
+        RaycastHit2D hit3 = Physics2D.Raycast(position2, direction, distance); ;
+
+        if (hit.collider != null && hit2.collider != null && hit3.collider != null)
+        {
+            if (hit.collider.tag == "WallJump" || hit2.collider.tag == "WallJump" || hit3.collider.tag == "WallJump")
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public void OnPlatform(bool onPlatform)
     { 

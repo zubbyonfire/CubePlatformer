@@ -102,9 +102,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSmoothing: 0.5
+  jumpForceLeftRight: 300
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
+  wallJumpLayer:
+    serializedVersion: 2
+    m_Bits: 0
   groundDistCheck: 0.3
   rb2D: {fileID: 0}
 --- !u!114 &114801938147447178
