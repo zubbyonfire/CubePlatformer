@@ -188,11 +188,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 8.09
+      value: 3.55
       objectReference: {fileID: 0}
     - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.85
+      value: -2.48
       objectReference: {fileID: 0}
     - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
       propertyPath: m_LocalPosition.z
@@ -220,12 +220,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
       propertyPath: m_LocalScale.y
-      value: 4.316
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1365976808058472, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
       propertyPath: m_TagString
       value: WallJump
       objectReference: {fileID: 0}
+    - target: {fileID: 61050304306983694, guid: 6bf3395900e62e04691f653a4638a5ac,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 3981f687dcbbf164189e5f3eab0abe5a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
   m_IsPrefabAsset: 0
@@ -357,11 +362,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.37
+      value: -0.13
       objectReference: {fileID: 0}
     - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.76
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
       propertyPath: m_LocalPosition.z
@@ -389,7 +394,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
       propertyPath: m_LocalScale.y
-      value: 4.316
+      value: 1.959464
       objectReference: {fileID: 0}
     - target: {fileID: 1365976808058472, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
       propertyPath: m_TagString
@@ -399,6 +404,74 @@ Prefab:
       propertyPath: m_Name
       value: TestCube 1x1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 61050304306983694, guid: 6bf3395900e62e04691f653a4638a5ac,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 3981f687dcbbf164189e5f3eab0abe5a, type: 2}
+    - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.93
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &1694054305
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -3.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.059570312
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544610401562554, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4.316
+      objectReference: {fileID: 0}
+    - target: {fileID: 1365976808058472, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_TagString
+      value: WallJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 1365976808058472, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
+      propertyPath: m_Name
+      value: TestCube 1x1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 61050304306983694, guid: 6bf3395900e62e04691f653a4638a5ac,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 3981f687dcbbf164189e5f3eab0abe5a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bf3395900e62e04691f653a4638a5ac, type: 2}
   m_IsPrefabAsset: 0
@@ -411,11 +484,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4033587478539502, guid: a5c680b02014bae4490818e1d335afbc, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -6.3
+      value: 2.16
       objectReference: {fileID: 0}
     - target: {fileID: 4033587478539502, guid: a5c680b02014bae4490818e1d335afbc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.39
+      value: -2.36
       objectReference: {fileID: 0}
     - target: {fileID: 4033587478539502, guid: a5c680b02014bae4490818e1d335afbc, type: 2}
       propertyPath: m_LocalPosition.z

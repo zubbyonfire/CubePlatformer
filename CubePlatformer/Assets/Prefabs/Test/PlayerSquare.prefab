@@ -135,6 +135,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedMode: 3.4
   jumpForce: 500
+  wallJumpVertForce: 806
+  wallJumpHoriForce: 640
 --- !u!212 &212533391055978436
 SpriteRenderer:
   m_ObjectHideFlags: 1
