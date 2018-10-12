@@ -34,6 +34,8 @@ public class PlayerSpawner : MonoBehaviour {
         if (previousSceneName == null && levelStart || (previousSceneName == sceneList.ToString()))
         {
             GameObject spawnedPlayer = Instantiate(playerData.playerObject, transform.position, transform.rotation)as GameObject;
+
+            Camera.main.GetComponent<CameraFollow>().SetupPlayer(spawnedPlayer);
         }
     }
 
