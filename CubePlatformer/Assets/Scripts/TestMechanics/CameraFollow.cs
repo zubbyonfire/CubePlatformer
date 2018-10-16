@@ -84,18 +84,6 @@ public class CameraFollow : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
-        minYPos = new Vector2(transform.position.x - xMinValue, transform.position.y);
-        maxYPos = new Vector2(transform.position.x + xMaxValue, transform.position.y);
-
-        minYPos = new Vector2(transform.position.x, transform.position.y - yMinValue);
-        maxYPos = new Vector2(transform.position.x, transform.position.y + yMaxValue);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(minYPos, transform.position);
-        Gizmos.DrawLine(maxYPos, transform.position);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, minXPos);
-        Gizmos.DrawLine(transform.position, maxXPos);
+        
     }
 }
