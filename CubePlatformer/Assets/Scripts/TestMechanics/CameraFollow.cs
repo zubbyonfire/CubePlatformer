@@ -23,8 +23,8 @@ public class CameraFollow : MonoBehaviour {
 
     private bool playerActive = false;
 
-    //Gizmo position variables
-    private Vector2 minXPos, maxXPos, minYPos, maxYPos;
+    //Minimum X and Y values - these are the min values for the limit
+    private float minimumX = 9, minimumY = 5;
 
 	// Use this for initialization
 	void Start () {
@@ -48,6 +48,9 @@ public class CameraFollow : MonoBehaviour {
         {
             //Update the target position
             Vector3 targetPos = targetPlayer.position;
+
+            //targetPos.x = Mathf.Clamp(targetPlayer.position.x, xMinValue, xMaxValue);
+            //targetPos.y = Mathf.Clamp(targetPlayer.position.y, yMinValue, yMaxValue);
 
             if (yMinEnabled && yMaxEnabled)
             {
@@ -82,8 +85,23 @@ public class CameraFollow : MonoBehaviour {
         }
     }
 
-    private void OnDrawGizmos()
+    public void LimitSetup(float minX, float maxX, float minY, float maxY)
     {
-        
+        if (minimumX > minX) { xMinValue = minimumX; } else { xMinValue = -minX; }
+        if (minimumX > maxX) { xMaxValue = minimumX; } else { xMaxValue = maxX; }
+        if (minimumY > minY) { yMinValue = minimumY; } else { yMinValue = -minY; }
+        if (minimumY > maxY) { yMaxValue = minimumY; } else { yMaxValue = maxY; }
+
+        float vertExtent = GetComponent<Camera>().orthographicSize;
+        float horizExtent = (vertExtent * Screen.width / Screen.height);
+
+        Debug.Log("Vert Length " + vertExtent);
+        Debug.Log("Horiz Length " + horizExtent);
+
+        xMinValue += horizExtent;
+        xMaxValue -= horizExtent;
+
+        yMinValue += vertExtent;
+        yMaxValue -= vertExtent;
     }
 }
