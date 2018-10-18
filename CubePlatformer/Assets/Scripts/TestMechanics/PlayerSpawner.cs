@@ -46,7 +46,7 @@ public class PlayerSpawner : MonoBehaviour {
     }
 }
 
-[CustomEditor(typeof(PlayerSpawner))]
+/*[CustomEditor(typeof(PlayerSpawner))]
 public class PlayerSpawnerEditor:Editor
 {
     override public void OnInspectorGUI()
@@ -68,4 +68,5 @@ public class PlayerSpawnerEditor:Editor
             }
         }
     }
-}
+    }
+}*/

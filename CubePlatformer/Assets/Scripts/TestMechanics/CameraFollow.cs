@@ -15,10 +15,6 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField]
     private float smoothTime = 0.15f;
 
-    [SerializeField]
-    private bool yMinEnabled = false, yMaxEnabled = false, xMinEnabled = false, xMaxEnabled = false;
-
-    [SerializeField]
     private float yMinValue = 0, yMaxValue = 0, xMinValue = 0, xMaxValue = 0;
 
     private bool playerActive = false;
@@ -49,34 +45,8 @@ public class CameraFollow : MonoBehaviour {
             //Update the target position
             Vector3 targetPos = targetPlayer.position;
 
-            //targetPos.x = Mathf.Clamp(targetPlayer.position.x, xMinValue, xMaxValue);
-            //targetPos.y = Mathf.Clamp(targetPlayer.position.y, yMinValue, yMaxValue);
-
-            if (yMinEnabled && yMaxEnabled)
-            {
-                targetPos.y = Mathf.Clamp(targetPlayer.position.y, yMinValue, yMaxValue);
-            }
-            else if (yMinEnabled)
-            {
-                targetPos.y = Mathf.Clamp(targetPlayer.position.y, yMinValue, targetPlayer.position.y);
-            }
-            else if (yMaxEnabled)
-            {
-                targetPos.y = Mathf.Clamp(targetPlayer.position.y, targetPlayer.position.y, yMaxValue);
-            }
-
-            if (xMinEnabled && xMaxEnabled)
-            {
-                targetPos.x = Mathf.Clamp(targetPlayer.position.x, xMinValue, xMaxValue);
-            }
-            else if (yMinEnabled)
-            {
-                targetPos.x = Mathf.Clamp(targetPlayer.position.x, xMinValue, targetPlayer.position.x);
-            }
-            else if (yMaxEnabled)
-            {
-                targetPos.x = Mathf.Clamp(targetPlayer.position.x, targetPlayer.position.x, xMaxValue);
-            }
+            targetPos.x = Mathf.Clamp(targetPlayer.position.x, xMinValue, xMaxValue);
+            targetPos.y = Mathf.Clamp(targetPlayer.position.y, yMinValue, yMaxValue);
 
             //Align the target Z position with the cameras
             targetPos.z = transform.position.z;
@@ -94,9 +64,6 @@ public class CameraFollow : MonoBehaviour {
 
         float vertExtent = GetComponent<Camera>().orthographicSize;
         float horizExtent = (vertExtent * Screen.width / Screen.height);
-
-        Debug.Log("Vert Length " + vertExtent);
-        Debug.Log("Horiz Length " + horizExtent);
 
         xMinValue += horizExtent;
         xMaxValue -= horizExtent;

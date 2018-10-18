@@ -9,28 +9,17 @@ public class CameraLimitSetup : MonoBehaviour {
     [SerializeField]
     [Range(9, 100)]
     private float minX, maxX;
-    public float minXPos { get { return minXPos; } set { minXPos = value; } }
-    public float maxXPos { get { return maxXPos; } set { maxXPos = value; } }
 
     [SerializeField]
-    [Range(0, 100)]
+    [Range(5, 100)]
     private float minY, maxY;
-    public float minYPos { get { return minYPos; } set { minYPos = value; } }
-    public float maxYPos { get { return maxYPos; } set { maxYPos = value; } }
-
-    private Vector2 topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner;
 
     private Vector2 centerPos = Vector2.zero;
     private Vector2 topPos, leftPos, rightPos, bottomPos;
 
-    public Vector2 topPosition { get { return topPos; } }
-    public Vector2 leftPosition { get { return leftPos; } }
-    public Vector2 rightPosition { get { return rightPos; } }
-    public Vector2 bottomPosition { get { return bottomPos; } }
-
-    private float heightSize, lengthSize;
-
     private CameraFollow followScript;
+
+    private Vector2 updatedCenterPos;
 
 	// Use this for initialization
 	void Start () {
@@ -45,9 +34,18 @@ public class CameraLimitSetup : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         //If the application is not playing
-        //if (!Application.isPlaying)
-        //{ 
+        if (!Application.isPlaying)
+        {
+            centerPos = this.gameObject.transform.position;
+
+            //Adjust the values of Min/Max so there within 0.5
+            minX = Mathf.Floor(minX * 2) / 2;
+            maxX = Mathf.Floor(maxX * 2) / 2;
+            minY = Mathf.Floor(minY * 2) / 2;
+            maxY = Mathf.Floor(maxY * 2) / 2;
+
             topPos = new Vector2(centerPos.x, centerPos.y + maxY);
             leftPos = new Vector2(centerPos.x - minX, centerPos.y);
             rightPos = new Vector2(centerPos.x + maxX, centerPos.y);
@@ -63,6 +61,20 @@ public class CameraLimitSetup : MonoBehaviour {
             Gizmos.DrawLine(new Vector2(leftPos.x, topPos.y), new Vector2(leftPos.x, bottomPos.y));
             //Draw line between right hand points
             Gizmos.DrawLine(new Vector2(rightPos.x, topPos.y), new Vector2(rightPos.x, bottomPos.y));
-        //}
+
+            //Update the updatedCenterPosition
+            Vector3 horizPos = (leftPos + rightPos) / 2f;
+            Vector3 vertPos = (topPos + bottomPos) / 2f;
+            Vector3 updatedNewPos = new Vector3(horizPos.x, vertPos.y, 0);
+
+            //Draw cube to help show camera area
+            Gizmos.color = new Color(0, 0, 20, 0.1f);
+            Gizmos.DrawCube(updatedNewPos,
+                new Vector3(Vector2.Distance(leftPos, rightPos), Vector2.Distance(topPos, bottomPos), 1));
+
+        }
+#endif
     }
+
 }
+

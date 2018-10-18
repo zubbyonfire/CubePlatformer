@@ -149,7 +149,7 @@ public class PlatformLogic : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
-
+#if UNITY_EDITOR
         if (!Application.isPlaying)
         {
 
@@ -175,8 +175,6 @@ public class PlatformLogic : MonoBehaviour {
             Gizmos.DrawLine(transform.position, endTargetPos);
             Gizmos.DrawCube(endTargetPos, new Vector3(0.25f, 0.25f, 0));
             Handles.Label(new Vector2(endTargetPos.x - 0.1f, endTargetPos.y + 0.3f), "End");
-        
+#endif
     }
-
-    
 }

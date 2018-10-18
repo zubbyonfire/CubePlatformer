@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/TestLoadLevel.unity
+  - enabled: 0
+    path: Assets/Scenes/TestMechanics/TestLoadLevel.unity
     guid: 6f7e58e6085b0e7459db6a9f74bc8cce
-  - enabled: 1
-    path: Assets/Scenes/TestMechanic.unity
+  - enabled: 0
+    path: Assets/Scenes/TestMechanics/TestMechanic.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/TestMechanics/PlatformTest.unity
+    guid: 09d0c6620f42f1c4c8ce6ca4852e1c52
   m_configObjects: {}
